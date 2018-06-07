@@ -133,45 +133,29 @@ class Browser(object):
         return self.post(url, data, headers)
 
     # authentication
-
-    def login_se_openid(self, user, password):
+    def login_site(self, host, user, password):
         """
         Logs the browser into Stack Exchange's OpenID provider.
         """
         self.userlogin = user
         self.userpass = password
 
-        self._se_openid_login_with_fkey(
-            'https://openid.stackexchange.com/account/login',
-            'https://openid.stackexchange.com/account/login/submit',
+        self._site_login_with_fkey(
+            'https://{}/users/login'.format(host),
+            'https://{}/users/login'.format(host),
             {
                 'email': user,
                 'password': password,
             })
 
-        if not self.session.cookies.get('usr', None):
+        check_login = self.get("https://{}/users/current".format(host), with_chat_root=False)
+
+        if not check_login.ok:
             raise LoginError(
-                "failed to get `usr` cookie from Stack Exchange OpenID, "
+                "failed to validate login, "
                 "check credentials provided for accuracy")
 
-    def login_site(self, host):
-        """
-        Logs the browser into a Stack Exchange site.
-        """
-        assert self.host is None or self.host is host
-
-        self._se_openid_login_with_fkey(
-            'https://%s/users/login?returnurl = %%2f' % (host,),
-            'https://%s/users/authenticate' % (host,),
-            {
-                'oauth_version': '',
-                'oauth_server': '',
-                'openid_identifier': 'https://openid.stackexchange.com/'
-            })
-
-        self.host = host
-
-    def _se_openid_login_with_fkey(self, fkey_url, post_url, data=()):
+    def _site_login_with_fkey(self, fkey_url, post_url, data=()):
         """
         POSTs the specified login data to post_url, after retrieving an
         'fkey' value from an element named 'fkey' at fkey_url.
@@ -188,28 +172,6 @@ class Browser(object):
         data['fkey'] = fkey
 
         response = self.post(post_url, data, with_chat_root=False)
-
-        response = self._handle_se_openid_prompt_if_neccessary(response)
-
-        return response
-
-    def _handle_se_openid_prompt_if_neccessary(self, prompt_response):
-        prompt_prefix = 'https://openid.stackexchange.com/account/prompt'
-
-        if not prompt_response.url.startswith(prompt_prefix):
-            # no prompt for us to handle
-            return prompt_response
-
-        prompt_soup = BeautifulSoup(prompt_response.text, "html.parser")
-
-        data = {
-            'session': prompt_soup.find('input', {'name': 'session'})['value'],
-            'fkey': prompt_soup.find('input', {'name': 'fkey'})['value']
-        }
-
-        url = 'https://openid.stackexchange.com/account/prompt/submit'
-
-        response = self.post(url, data, with_chat_root=False)
 
         return response
 
