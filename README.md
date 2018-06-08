@@ -1,9 +1,9 @@
-ChatOverflow
+ChatExchange
 ============
 
-[![Build Status](https://travis-ci.org/Filnor/ChatOverflow.svg?branch=master)](https://travis-ci.org/Filnor/ChatOverflow)
+[![Travis CI build status for master](https://travis-ci.org/Manishearth/ChatExchange.svg?branch=master)](https://travis-ci.org/Manishearth/ChatExchange)
 
-A Python2 and Python3 cross-version API for talking to Stack Overflow chat.
+A Python2 and Python3 cross-version API for talking to Stack Exchange chat.
 
  - Supported Python versions (Travis CI build run for each of these):  
     `2.7`, `3.4`, `3.5`, `3.6`, `3.7-dev`, `nightly` 
