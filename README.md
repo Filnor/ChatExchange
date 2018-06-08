@@ -2,6 +2,8 @@ ChatOverflow
 ============
 
 [![Build Status](https://travis-ci.org/Filnor/ChatOverflow.svg?branch=master)](https://travis-ci.org/Filnor/ChatOverflow)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e45cfc11d4bec7a15e46/maintainability)](https://codeclimate.com/github/Filnor/ChatOverflow/maintainability)
+
 
 A Python2 and Python3 cross-version API for talking to Stack Overflow chat.
 
