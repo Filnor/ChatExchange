@@ -12,7 +12,6 @@ install:
 script:
   - python -W default::Warning -m coverage.__main__ run --branch -m pytest --tb short
   - python -m coverage.__main__ report --include 'chatexchange/*'
-  - pytest --cov=./tests
 branches:
   only:
     - master
@@ -22,5 +21,3 @@ env:
     - secure: "S9c9S/OgKGa7mLz/Ys0aVwbyNtxBubUVWO0i3ew0sm0KwUBFiNNPtWTyCT21jGrjd1Zp0AvMlcSFhJ9auGAMAVIqPTqM1GkNGU5fPwx6Lo3KAGSqW+XN2cAFXljEyAQ2Bhn/ilWeUymC1EpkNRIDarCJZcNsctrs8P3H67gSFtc="
 notifications:
   email: false
-after_success:
-  - codecov --token=4ffb3236-82ad-4763-959f-22e064e6d43f
