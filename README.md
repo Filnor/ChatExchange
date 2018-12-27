@@ -1,6 +1,8 @@
 ChatOverflow
 ============
 
+## This project is no longer maintained, please use the original project: https://github.com/Manishearth/ChatExchange
+
 [![Build Status](https://travis-ci.org/Filnor/ChatOverflow.svg?branch=master)](https://travis-ci.org/Filnor/ChatOverflow)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e45cfc11d4bec7a15e46/maintainability)](https://codeclimate.com/github/Filnor/ChatOverflow/maintainability)
 
